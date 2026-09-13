@@ -662,8 +662,9 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                         - searchType="content": Search inside files for text patterns
                         
                         PATTERN MATCHING MODES:
-                        - Default (literalSearch=false): Patterns are treated as regular expressions
-                        - Literal (literalSearch=true): Patterns are treated as exact strings
+                        - File-name search (searchType="files"): pattern uses exact filename, glob, or substring matching; it is not regex
+                        - Text content search: regex by default; literalSearch=true switches to fixed-string matching
+                        - Excel/DOCX content search: literal substring matching regardless of literalSearch
                         
                         WHEN TO USE literalSearch=true:
                         Use literal search when searching for code patterns with special characters:
@@ -675,8 +676,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
                         
                         IMPORTANT PARAMETERS:
                         - pattern: What to search for (file names OR content text)
-                        - literalSearch: Use exact string matching instead of regex (default: false)
-                        - filePattern: Optional filter to limit search to specific file types (e.g., "*.js", "package.json")
+                        - literalSearch: For text content search only, switch from regex to fixed-string matching (default: false); ignored for file-name search
+                        - filePattern: Optional glob filter to limit search to specific file types (e.g., "*.js", "package.json")
                         - ignoreCase: Case-insensitive search (default: true). Works for both file names and content.
                         - earlyTermination: Stop search early when exact filename match is found (optional: defaults to true for file searches, false for content searches)
                         
